@@ -15,6 +15,7 @@ public class ExchangeRatesRestController {
 
     @Autowired
     private ExchangeRatesService exchangeRatesService;
+
     @GetMapping("/{symbols}")
     public ResponseEntity<ExchangeRates> consultExchangeRates(@PathVariable String symbols){
         return ResponseEntity.ok(exchangeRatesService.exchangeRates(symbols));
