@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 public interface ExchangeRatesService {
 
     @GetMapping(
-        "latest?access_key=d6234911f644ef97c27d4d4ea6c85cc0&symbols={symbols}&format=1"
+        "latest?access_key=84d4c929522fe84e139630dbc88f546a&symbols={symbols}&format=1"
     )
     ExchangeRates exchangeRates(
-            @PathVariable("symbols") String symbols
+            @PathVariable("symbols") String currency
     );
 }

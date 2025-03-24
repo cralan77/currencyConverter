@@ -1,6 +1,7 @@
 package br.com.c6bank.currencyConverter.service.impl;
 
 
+import br.com.c6bank.currencyConverter.model.dto.CurrencyConverterView;
 import br.com.c6bank.currencyConverter.model.entity.Transaction;
 import br.com.c6bank.currencyConverter.model.entity.TransactionConverter;
 import br.com.c6bank.currencyConverter.model.repository.TransactionConverterRepository;
@@ -14,11 +15,6 @@ import java.util.List;
 @Service
 public class TransactionConverterServiceImpl implements TransactionConverterService {
 
-    @Autowired
-    private TransactionConverter transactionConverter;
-
-    @Autowired
-    private ExchangeRatesService exchangeRatesService;
 
     @Autowired
     private TransactionConverterRepository transactionConverterRepository;
@@ -27,6 +23,9 @@ public class TransactionConverterServiceImpl implements TransactionConverterServ
     @Override
     public TransactionConverter converterTransaction(Transaction transaction) {
 
+
+        TransactionConverter transactionConverter = new TransactionConverter();
+
         transactionConverter.setAmountDestination(
                 transaction.getAmountOrigin()*transaction.getRateConversion()
                 );
@@ -34,7 +33,7 @@ public class TransactionConverterServiceImpl implements TransactionConverterServ
     }
 
     @Override
-    public List<TransactionConverter> findAllByUserID(Long userID) {
+    public List<Transaction> findAllByUserID(Long userID) {
 
         return transactionConverterRepository.findAllByUserID(userID);
     }

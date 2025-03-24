@@ -1,26 +1,25 @@
 package br.com.c6bank.currencyConverter.model.entity;
 
 import jakarta.persistence.*;
+import org.springframework.stereotype.Component;
 
+@Component
 @Entity
-@Table(name = "TRANSACTIONCONVERTER")
 public class TransactionConverter {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "IDTRANSACTIONCONVERTER")
+    private Long idTransactionConverter;
     private Double amountDestination;
+
 
     @OneToOne(mappedBy = "transactionConverter")
     private Transaction transaction;
 
-    public Long getId() {
-        return id;
+    public Long getID() {
+        return idTransactionConverter;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public Double getAmountDestination() {
         return amountDestination;

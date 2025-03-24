@@ -1,45 +1,27 @@
-package br.com.c6bank.currencyConverter.model.entity;
+package br.com.c6bank.currencyConverter.model.dto;
 
-import jakarta.persistence.*;
-import org.springframework.stereotype.Component;
+import br.com.c6bank.currencyConverter.model.entity.Transaction;
+import br.com.c6bank.currencyConverter.model.entity.TransactionConverter;
 
 import java.time.LocalDateTime;
 
-@Component
-@Entity
-public class Transaction {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id", nullable = false)
-    private Long id;
-
+public class CurrencyConverterView {
+    private Long idTransaction;
     private Long user_Id;
     private String currencyOrigin;
     private Double amountOrigin;
     private String currencyDestination;
+    private Double amountDestination;
     private Double rateConversion;
     private LocalDateTime dateTime;
 
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="transaction_id", referencedColumnName = "IDTRANSACTIONCONVERTER")
-    private TransactionConverter transactionConverter;
-
-    public TransactionConverter getTransactionConverter() {
-        return transactionConverter;
+    public Long getIdTransaction() {
+        return idTransaction;
     }
 
-    public void setTransactionConverter(TransactionConverter transactionConverter) {
-        this.transactionConverter = transactionConverter;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdTransaction(Long idTransaction) {
+        this.idTransaction = idTransaction;
     }
 
     public Long getUser_Id() {
@@ -74,6 +56,14 @@ public class Transaction {
         this.currencyDestination = currencyDestination;
     }
 
+    public Double getAmountDestination() {
+        return amountDestination;
+    }
+
+    public void setAmountDestination(Double amountDestination) {
+        this.amountDestination = amountDestination;
+    }
+
     public Double getRateConversion() {
         return rateConversion;
     }
@@ -89,4 +79,16 @@ public class Transaction {
     public void setDateTime(LocalDateTime dateTime) {
         this.dateTime = dateTime;
     }
+
+    public CurrencyConverterView(Transaction transaction, TransactionConverter transactionConverter){
+        this.idTransaction = transaction.getId();
+        this.user_Id = transaction.getUser_Id();
+        this.currencyOrigin = transaction.getCurrencyOrigin();
+        this.amountOrigin = transaction.getAmountOrigin();
+        this.currencyDestination = transaction.getCurrencyDestination();
+        this.amountDestination = transactionConverter.getAmountDestination();
+        this.rateConversion = transaction.getRateConversion();
+        this.dateTime = transaction.getDateTime();
+    };
+
 }

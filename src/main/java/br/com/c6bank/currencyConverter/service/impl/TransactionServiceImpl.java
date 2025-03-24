@@ -9,11 +9,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class TransactionServiceImpl implements TransactionService {
 
-    @Autowired
-    private Transaction transaction;
+
 
     @Override
-    public Transaction calculateRate(ExchangeRates rates) {
+    public Transaction calculateRate(ExchangeRates rates, Transaction transaction) {
 
         String currencyOrigin = transaction.getCurrencyOrigin();
         String currencyDestination= transaction.getCurrencyDestination();
