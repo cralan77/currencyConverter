@@ -39,28 +39,38 @@ public class CurrencyConverterRestController {
     @Autowired
     private TransactionRepository transactionRepository;
 
+    //Endpoint para obter todas as transações por funcionário
     @GetMapping("/findAllByUser={user}")
     public ResponseEntity<List<Transaction>> consultExchangeRates(@PathVariable Long user){
         return ResponseEntity.ok(transactionRepository.findAllByUserID(user));
     }
 
+    //Endpoint para converter valor informado
     @PostMapping("/converter")
     public ResponseEntity<Transaction> converterCurrency(@RequestBody Transaction transaction) {
 
+        //Obtendo taxas com base nas moedas informadas
         ExchangeRates exchangeRates = exchangeRatesService.exchangeRates(transaction.getCurrencyOrigin()+","+transaction.getCurrencyDestination());
 
+        //Determina taxa da transação
         transaction.setRateConversion(transactionService.calculateRate(exchangeRates, transaction));
 
+        //Determina data e hora da transação
         transaction.setDateTime( LocalDateTime.now(ZoneOffset.UTC));
 
+        //Conversão do valor
         AmountConverter amountConverter = amountConverterService.converterAmount(transaction);
 
+        //Determina o valor final calculado na transação
         transaction.setAmountConverter(amountConverter);
 
-
-
+        //Persiste as taxas obtidas na API Externa
         exchangeRatesRepository.save(exchangeRates);
+
+        //Persiste o valor final calculado
         amountConverterRepository.save(amountConverter);
+
+        //Persiste a transação
         transactionRepository.save(transaction);
 
         return ResponseEntity.ok(transaction);

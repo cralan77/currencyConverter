@@ -16,6 +16,7 @@ public class ExchangeRatesRestController {
     @Autowired
     private ExchangeRatesService exchangeRatesService;
 
+    //Endpoint para obter taxas de conversão na API Externa
     @GetMapping("/{symbols}")
     public ResponseEntity<ExchangeRates> consultExchangeRates(@PathVariable String symbols){
         return ResponseEntity.ok(exchangeRatesService.exchangeRates(symbols));
