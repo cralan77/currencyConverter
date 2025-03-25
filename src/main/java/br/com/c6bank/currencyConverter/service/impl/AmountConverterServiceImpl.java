@@ -3,11 +3,11 @@ package br.com.c6bank.currencyConverter.service.impl;
 
 import br.com.c6bank.currencyConverter.model.entity.Transaction;
 import br.com.c6bank.currencyConverter.model.entity.AmountConverter;
-import br.com.c6bank.currencyConverter.service.TransactionConverterService;
+import br.com.c6bank.currencyConverter.service.AmountConverterService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class TransactionConverterServiceImpl implements TransactionConverterService {
+public class AmountConverterServiceImpl implements AmountConverterService {
 
 
 

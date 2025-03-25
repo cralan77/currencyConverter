@@ -4,10 +4,10 @@ import br.com.c6bank.currencyConverter.model.entity.ExchangeRates;
 import br.com.c6bank.currencyConverter.model.entity.Transaction;
 import br.com.c6bank.currencyConverter.model.entity.AmountConverter;
 import br.com.c6bank.currencyConverter.model.repository.ExchangeRatesRepository;
-import br.com.c6bank.currencyConverter.model.repository.TransactionConverterRepository;
+import br.com.c6bank.currencyConverter.model.repository.AmountConverterRepository;
 import br.com.c6bank.currencyConverter.model.repository.TransactionRepository;
 import br.com.c6bank.currencyConverter.service.ExchangeRatesService;
-import br.com.c6bank.currencyConverter.service.TransactionConverterService;
+import br.com.c6bank.currencyConverter.service.AmountConverterService;
 import br.com.c6bank.currencyConverter.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +22,7 @@ import java.util.List;
 public class TransactionConverterRestController {
 
     @Autowired
-    private TransactionConverterService transactionConverterService;
+    private AmountConverterService amountConverterService;
 
     @Autowired
     private TransactionService transactionService;
@@ -34,7 +34,7 @@ public class TransactionConverterRestController {
     private ExchangeRatesRepository exchangeRatesRepository;
 
     @Autowired
-    private TransactionConverterRepository transactionConverterRepository;
+    private AmountConverterRepository amountConverterRepository;
 
     @Autowired
     private TransactionRepository transactionRepository;
@@ -53,14 +53,14 @@ public class TransactionConverterRestController {
 
         transaction.setDateTime( LocalDateTime.now(ZoneOffset.UTC));
 
-        AmountConverter amountConverter = transactionConverterService.converterTransaction(transaction);
+        AmountConverter amountConverter = amountConverterService.converterTransaction(transaction);
 
         transaction.setTransactionConverter(amountConverter);
 
 
 
         exchangeRatesRepository.save(exchangeRates);
-        transactionConverterRepository.save(amountConverter);
+        amountConverterRepository.save(amountConverter);
         transactionRepository.save(transaction);
 
         return ResponseEntity.ok(transaction);

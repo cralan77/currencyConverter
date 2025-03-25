@@ -5,7 +5,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface TransactionConverterRepository extends CrudRepository<AmountConverter, Long> {
+public interface AmountConverterRepository extends CrudRepository<AmountConverter, Long> {
 
 
 }
