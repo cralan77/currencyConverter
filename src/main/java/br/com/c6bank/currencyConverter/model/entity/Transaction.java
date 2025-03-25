@@ -23,15 +23,15 @@ public class Transaction {
 
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="transaction_id", referencedColumnName = "IDTRANSACTIONCONVERTER")
-    private TransactionConverter transactionConverter;
+    @JoinColumn(name="amount_id", referencedColumnName = "IDAMOUNTCONVERTER")
+    private AmountConverter amountConverter;
 
-    public TransactionConverter getTransactionConverter() {
-        return transactionConverter;
+    public AmountConverter getTransactionConverter() {
+        return amountConverter;
     }
 
-    public void setTransactionConverter(TransactionConverter transactionConverter) {
-        this.transactionConverter = transactionConverter;
+    public void setTransactionConverter(AmountConverter amountConverter) {
+        this.amountConverter = amountConverter;
     }
 
     public Long getId() {

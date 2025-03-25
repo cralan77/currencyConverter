@@ -2,7 +2,7 @@ package br.com.c6bank.currencyConverter.service.impl;
 
 
 import br.com.c6bank.currencyConverter.model.entity.Transaction;
-import br.com.c6bank.currencyConverter.model.entity.TransactionConverter;
+import br.com.c6bank.currencyConverter.model.entity.AmountConverter;
 import br.com.c6bank.currencyConverter.service.TransactionConverterService;
 import org.springframework.stereotype.Service;
 
@@ -14,15 +14,15 @@ public class TransactionConverterServiceImpl implements TransactionConverterServ
 
 
     @Override
-    public TransactionConverter converterTransaction(Transaction transaction) {
+    public AmountConverter converterTransaction(Transaction transaction) {
 
 
-        TransactionConverter transactionConverter = new TransactionConverter();
+        AmountConverter amountConverter = new AmountConverter();
 
-        transactionConverter.setAmountDestination(
+        amountConverter.setAmountDestination(
                 transaction.getAmountOrigin()*transaction.getRateConversion()
                 );
-        return transactionConverter;
+        return amountConverter;
     }
 
 

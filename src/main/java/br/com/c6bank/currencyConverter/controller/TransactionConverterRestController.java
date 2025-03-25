@@ -2,7 +2,7 @@ package br.com.c6bank.currencyConverter.controller;
 
 import br.com.c6bank.currencyConverter.model.entity.ExchangeRates;
 import br.com.c6bank.currencyConverter.model.entity.Transaction;
-import br.com.c6bank.currencyConverter.model.entity.TransactionConverter;
+import br.com.c6bank.currencyConverter.model.entity.AmountConverter;
 import br.com.c6bank.currencyConverter.model.repository.ExchangeRatesRepository;
 import br.com.c6bank.currencyConverter.model.repository.TransactionConverterRepository;
 import br.com.c6bank.currencyConverter.model.repository.TransactionRepository;
@@ -53,14 +53,14 @@ public class TransactionConverterRestController {
 
         transaction.setDateTime( LocalDateTime.now(ZoneOffset.UTC));
 
-        TransactionConverter transactionConverter = transactionConverterService.converterTransaction(transaction);
+        AmountConverter amountConverter = transactionConverterService.converterTransaction(transaction);
 
-        transaction.setTransactionConverter(transactionConverter);
+        transaction.setTransactionConverter(amountConverter);
 
 
 
         exchangeRatesRepository.save(exchangeRates);
-        transactionConverterRepository.save(transactionConverter);
+        transactionConverterRepository.save(amountConverter);
         transactionRepository.save(transaction);
 
         return ResponseEntity.ok(transaction);

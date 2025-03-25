@@ -5,15 +5,15 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Entity
-public class TransactionConverter {
+public class AmountConverter {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "IDTRANSACTIONCONVERTER")
+    @Column(name = "IDAMOUNTCONVERTER")
     private Long idTransactionConverter;
     private Double amountDestination;
 
 
-    @OneToOne(mappedBy = "transactionConverter")
+    @OneToOne(mappedBy = "amountConverter")
     private Transaction transaction;
 
     public Long getID() {

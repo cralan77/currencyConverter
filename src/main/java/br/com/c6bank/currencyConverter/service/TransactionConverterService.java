@@ -1,11 +1,11 @@
 package br.com.c6bank.currencyConverter.service;
 
 import br.com.c6bank.currencyConverter.model.entity.Transaction;
-import br.com.c6bank.currencyConverter.model.entity.TransactionConverter;
+import br.com.c6bank.currencyConverter.model.entity.AmountConverter;
 
 public interface TransactionConverterService  {
 
-    TransactionConverter converterTransaction( Transaction transaction);
+    AmountConverter converterTransaction(Transaction transaction);
 
 
 
