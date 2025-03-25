@@ -14,7 +14,7 @@ public class AmountConverterServiceImpl implements AmountConverterService {
 
 
     @Override
-    public AmountConverter converterTransaction(Transaction transaction) {
+    public AmountConverter converterAmount(Transaction transaction) {
 
 
         AmountConverter amountConverter = new AmountConverter();

@@ -9,7 +9,7 @@ public class AmountConverter {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "IDAMOUNTCONVERTER")
-    private Long idTransactionConverter;
+    private Long idAmountConverter;
     private Double amountDestination;
 
 
@@ -17,7 +17,7 @@ public class AmountConverter {
     private Transaction transaction;
 
     public Long getID() {
-        return idTransactionConverter;
+        return idAmountConverter;
     }
 
 

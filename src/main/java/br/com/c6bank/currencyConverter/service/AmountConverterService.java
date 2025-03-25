@@ -5,7 +5,7 @@ import br.com.c6bank.currencyConverter.model.entity.AmountConverter;
 
 public interface AmountConverterService {
 
-    AmountConverter converterTransaction(Transaction transaction);
+    AmountConverter converterAmount(Transaction transaction);
 
 
 

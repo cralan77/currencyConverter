@@ -26,11 +26,11 @@ public class Transaction {
     @JoinColumn(name="amount_id", referencedColumnName = "IDAMOUNTCONVERTER")
     private AmountConverter amountConverter;
 
-    public AmountConverter getTransactionConverter() {
+    public AmountConverter getAmountConverter() {
         return amountConverter;
     }
 
-    public void setTransactionConverter(AmountConverter amountConverter) {
+    public void setAmountConverter(AmountConverter amountConverter) {
         this.amountConverter = amountConverter;
     }
 

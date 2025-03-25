@@ -19,7 +19,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api")
-public class TransactionConverterRestController {
+public class CurrencyConverterRestController {
 
     @Autowired
     private AmountConverterService amountConverterService;
@@ -53,9 +53,9 @@ public class TransactionConverterRestController {
 
         transaction.setDateTime( LocalDateTime.now(ZoneOffset.UTC));
 
-        AmountConverter amountConverter = amountConverterService.converterTransaction(transaction);
+        AmountConverter amountConverter = amountConverterService.converterAmount(transaction);
 
-        transaction.setTransactionConverter(amountConverter);
+        transaction.setAmountConverter(amountConverter);
 
 
 
