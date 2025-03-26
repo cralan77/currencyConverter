@@ -1,5 +1,6 @@
 package br.com.c6bank.currencyConverter.service.impl;
 
+import br.com.c6bank.currencyConverter.handler.BusinessException;
 import br.com.c6bank.currencyConverter.model.entity.ExchangeRates;
 import br.com.c6bank.currencyConverter.model.entity.Transaction;
 import br.com.c6bank.currencyConverter.model.repository.TransactionRepository;
@@ -21,18 +22,16 @@ public class TransactionServiceImpl implements TransactionService {
 
         //Para ficar mais explicito e quebrar linhas, os valores foram alocados em variáveis antes da operação
 
-        //Aloca moeda de origem
+
         String currencyOrigin = transaction.getCurrencyOrigin();
 
-        //Aloca moeda de destino
         String currencyDestination= transaction.getCurrencyDestination();
 
-        //variavel que receberá taxa calculada
         Double rate;
 
         //Verifica se a moeda de origem é igual a moeda base das taxas
-        if(currencyOrigin.equals(rates.getBase())){
-            //Aloca as taxas base como taxa da transação
+        if(currencyOrigin.equalsIgnoreCase(rates.getBase())){
+
             rate=rates.getRates().get(currencyDestination);
 
         }else{
@@ -40,11 +39,18 @@ public class TransactionServiceImpl implements TransactionService {
 
             //Aqui ocorre calculo para determinar a taxa com base em duas moedas diferentes da moeda base
 
-            //Aloca taxa da moeda de origem
-            Double rateOrigin = rates.getRates().get(currencyOrigin);
 
-            //Aloca taxa da moeda de destino
-            Double rateDestination = rates.getRates().get(currencyDestination);
+            Double rateOrigin = rates.getRates().get(currencyOrigin.toUpperCase());
+
+            Double rateDestination = rates.getRates().get(currencyDestination.toUpperCase());
+
+            if(rateOrigin == null){
+                throw new BusinessException("Could not obtain rate of currencyOrigin: "+currencyOrigin);
+            }
+
+            if(rateDestination == null){
+                throw new BusinessException("Could not obtain rate of currencyDestination: "+currencyDestination);
+            }
 
             //Calculo da taxa da transação
             rate=rateDestination/rateOrigin;
@@ -56,6 +62,12 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public List<Transaction> findAllByUserID(Long userID) {
 
-        return transactionRepository.findAllByUserID(userID);
+        List<Transaction> response = transactionRepository.findAllByUserID(userID);
+
+        if(response.isEmpty()){
+            throw new BusinessException("There are no transactions for the user ID "+userID);
+        }
+
+        return response;
     }
 }

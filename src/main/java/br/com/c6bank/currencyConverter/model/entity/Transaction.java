@@ -1,5 +1,6 @@
 package br.com.c6bank.currencyConverter.model.entity;
 
+import br.com.c6bank.currencyConverter.handler.BusinessException;
 import jakarta.persistence.*;
 import org.springframework.stereotype.Component;
 
@@ -88,5 +89,31 @@ public class Transaction {
 
     public void setDateTime(LocalDateTime dateTime) {
         this.dateTime = dateTime;
+    }
+
+    public void validateTransaction(){
+        if(this.user_Id == null){
+            throw new BusinessException("user_Id Required");
+        }
+
+        if(this.currencyOrigin ==null){
+            throw  new BusinessException("currencyOrigin Required");
+        }
+
+        if(this.currencyOrigin.length() !=3){
+            throw new BusinessException("currencyOrigin Invalid, expected tree characters");
+        }
+        if(this.currencyDestination ==null){
+            throw  new BusinessException("currencyDestination Required");
+        }
+
+        if(this.currencyDestination.length() !=3){
+            throw new BusinessException("currencyDestination Invalid, expected tree characters");
+        }
+
+        if(this.amountOrigin <=0 ){
+            throw new BusinessException("Need amountOrigin greater than zero");
+        }
+
     }
 }

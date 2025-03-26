@@ -1,5 +1,6 @@
 package br.com.c6bank.currencyConverter.controller;
 
+import br.com.c6bank.currencyConverter.handler.BusinessException;
 import br.com.c6bank.currencyConverter.model.entity.ExchangeRates;
 import br.com.c6bank.currencyConverter.model.entity.Transaction;
 import br.com.c6bank.currencyConverter.model.entity.AmountConverter;
@@ -42,12 +43,17 @@ public class CurrencyConverterRestController {
     //Endpoint para obter todas as transações por funcionário
     @GetMapping("/findAllByUser={user}")
     public ResponseEntity<List<Transaction>> consultExchangeRates(@PathVariable Long user){
-        return ResponseEntity.ok(transactionRepository.findAllByUserID(user));
+
+
+        return ResponseEntity.ok(transactionService.findAllByUserID(user));
     }
 
     //Endpoint para converter valor informado
     @PostMapping("/converter")
     public ResponseEntity<Transaction> converterCurrency(@RequestBody Transaction transaction) {
+
+        //Valida dados iniciais da transação
+        transaction.validateTransaction();
 
         //Obtendo taxas com base nas moedas informadas
         ExchangeRates exchangeRates = exchangeRatesService.exchangeRates(transaction.getCurrencyOrigin()+","+transaction.getCurrencyDestination());
@@ -64,14 +70,17 @@ public class CurrencyConverterRestController {
         //Determina o valor final calculado na transação
         transaction.setAmountConverter(amountConverter);
 
-        //Persiste as taxas obtidas na API Externa
-        exchangeRatesRepository.save(exchangeRates);
+        //Persistência dos dados
+        try {
 
-        //Persiste o valor final calculado
-        amountConverterRepository.save(amountConverter);
+            exchangeRatesRepository.save(exchangeRates);
 
-        //Persiste a transação
-        transactionRepository.save(transaction);
+            amountConverterRepository.save(amountConverter);
+
+            transactionRepository.save(transaction);
+        }catch (Exception ex){
+            throw new BusinessException("Failed to persist data");
+        }
 
         return ResponseEntity.ok(transaction);
     }
